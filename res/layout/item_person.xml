@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="7dp"
+    android:layout_height="wrap_content" >
+    
+    <TextView
+        android:id="@+id/title"
+        android:paddingBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    style="@android:style/TextAppearance.Medium"
+	    android:text="Bob Smith"/>
+ 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    style="@android:style/TextAppearance.Small"
+	    android:layout_below="@+id/title"
+	    android:text="Actor" />
+
+</RelativeLayout>

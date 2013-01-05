@@ -1,0 +1,120 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.kennydude.trakt"
+    android:versionCode="6"
+    android:versionName="1.3" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="16" />
+    
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".TraktApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" android:theme="@style/Theme.trakt" android:hardwareAccelerated="true">
+        
+        <activity
+            android:name=".ActivityMain">
+           	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="android.app.default_searchable"
+                   android:value=".ActivitySearch" />
+        </activity>
+        
+        <activity
+            android:label="@string/login_to_trakt"
+            android:name=".ActivityLogin" />
+        
+        <activity
+            android:label="@string/check_in"
+            android:name=".ActivityCheckIn" />
+        
+        <activity
+            android:exported="true"
+            android:name=".ActivitySearch">
+            
+            <intent-filter>
+               	<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="http" android:host="trakt.tv" android:pathPrefix="/search" />
+            </intent-filter>
+            
+            <intent-filter>
+	            <action android:name="android.intent.action.SEARCH" />
+	        </intent-filter>
+	        <meta-data android:name="android.app.searchable"
+	                   android:resource="@xml/searchable"/>
+            
+        </activity>
+        
+        <activity
+            android:exported="true"
+            android:name=".ActivityItemView" android:uiOptions="splitActionBarWhenNarrow">
+            
+            <intent-filter>
+               	<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="http" android:host="trakt.tv" android:pathPrefix="/movie" />
+                <data android:scheme="http" android:host="www.trakt.tv" android:pathPrefix="/movie" />
+                <data android:scheme="http" android:host="trakt.tv" android:pathPrefix="/show" />
+                <data android:scheme="http" android:host="www.trakt.tv" android:pathPrefix="/show" />
+            </intent-filter>
+            
+        </activity>
+        
+        <activity
+            android:label="@string/about"
+            android:theme="@style/Theme.trakt.DialogWhenLarge"
+            android:name=".ActivityAbout" />
+        <activity
+            android:label="@string/settings"
+            android:name=".ActivitySettings" />
+        
+        <service
+            android:exported="true"
+            android:name=".EmbedTrakt">
+		        <intent-filter>
+		                <action android:name="com.android.ACTION_EMBED" />
+
+		                <data
+		                    android:host="trakt.tv"
+		                    android:pathPrefix="/movie"
+		                    android:scheme="http" />
+		                <data
+		                    android:host="www.trakt.tv"
+		                    android:pathPrefix="/movie"
+		                    android:scheme="http" />
+		                <data
+		                    android:host="trakt.tv"
+		                    android:pathPrefix="/show"
+		                    android:scheme="http" />
+		                <data
+		                    android:host="www.trakt.tv"
+		                    android:pathPrefix="/show"
+		                    android:scheme="http" />
+	                </intent-filter>
+	                <intent-filter>
+		                <action android:name="com.android.ACTION_EMBED" />
+		                
+		                <data
+		                    android:host="www.go.trakt.tv"
+		                    android:scheme="http" />
+
+		        </intent-filter>
+		</service>
+		
+        <provider
+            android:authorities="me.kennydude.trakt.data"
+            android:exported="false"
+            android:name=".data.TraktContentProvider">
+        </provider>
+        
+    </application>
+
+</manifest>

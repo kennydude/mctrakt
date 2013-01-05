@@ -1,0 +1,83 @@
+<resources>
+
+    <string name="app_name">McTrakt</string>
+    <string name="search_title">Searching for {query}</string>
+    <string name="movies">Movies</string>
+    <string name="shows">Shows</string>
+    <string name="refresh">Refresh</string>
+    <string name="search">Search</string>
+    <string name="details">Details</string>
+    <string name="select_episode">Select Episode</string>
+    <string name="season">Season {season} ({eps} episodes)</string>
+    <string name="season_specials">Special Episodes ({eps} specials)</string>
+    <string name="select_episode_first">Select an episode first!</string>
+    <string name="nothing">Nothing here!</string>
+    
+    <string name="favourite_movies">Favourite Movies</string>
+    <string name="favourite_shows">Favourite Shows</string>
+    
+    <string name="totally_ninja">Totally Ninja</string>
+    <string name="weak_sauce">Weak Sauce</string>
+    <string name="currently_ninja">Currently Totally Ninja</string>
+    <string name="currently_weak">Currently Weak Sauce</string>
+    <string name="reset_rating">Reset Rating</string>
+    
+    <string name="login_required">You will need to login to do that</string>
+    <string name="login_required_fragment">You will need to login to use this page</string>
+    <string name="login_to_trakt">Login to Trakt</string>
+    <string name="please_wait">Please Wait..</string>
+    <string name="logged_in">Logged in!</string>
+    <string name="failure">Whoops! Couldn\'t do that!</string>
+    
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="best_match">Best Match</string>
+    <string name="check_in">Check In</string>
+    
+    <string name="seen_it">Seen it</string>
+    <string name="in_collection">In my collection</string>
+    
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_shows">Trending Shows</string>
+    <string name="friends_activity">Friends Activity</string>
+    <string name="community_activity">Community Activity</string>
+    
+    <string name="share_custom">Share to {app}</string>
+    <string name="share_twitter">Share to Twitter</string>
+    <string name="share_facebook">Share to Facebook</string>
+    <string name="share_tumblr">Share to Tumblr</string>
+    <string name="all_checked_in">All checked in!</string>
+    <string name="share">Share</string>
+    
+    <string name="activity_watching">{user} is watching {title}</string>
+    <string name="activity_watchlist">{user} added {title} to their watchlist</string>
+    <string name="activity_scrobble">{user} scrobbled {title}</string>
+    
+    <string name="default_checkin_message">I\'m watching {show}</string>
+    <string name="default_checkin_message_show">I\'m watching {show} - {seasonNo}x{epNo} {episode}</string>
+    
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="confirm_logout">Are you sure you wish to logout? We\'ll miss you!</string>
+    <string name="yes">Yes please</string>
+    <string name="no">No thank you</string>
+    <string name="few_bits_remain">A few bits are still downloading…</string>
+    
+    <string name="job_actor">Actor (plays {extra})</string>
+    <string name="job_director">Director</string>
+    <string name="job_producer">Producer</string>
+    <string name="job_executive_producer">Executive Producer</string>
+    <string name="job_writer">Writer - {extra}</string>
+    <string name="people">People</string>
+    
+    <string name="about_str">
+McTrakt is a trakt client for Android built by @kennydude (Joe Simpson).\nI hope you love it as much as I do!\n\n
+Some lovely open-source libraries and such were used to make the application magical. Those were:\n\n
+Android ImageLoader - http://androidimageloader.com/\n
+Licensed under the Apache License 2.0\n\n
+Refresh, TV, Mustache icons are from the Noun Project.\n\n
+And also many of the images were generated using the resources here - android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html
+    </string>
+    
+</resources>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	xmlns:xrigau="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent">
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+		
+	    <TextView android:id="@+id/info"
+	        android:layout_width="match_parent"
+	        android:padding="10dp"
+	        android:text="@string/please_wait"
+	        android:gravity="center"
+	        android:textColor="@color/info_bar_text"
+	        android:background="@color/info_bar"
+	        android:layout_height="wrap_content" />
+	    
+	   	<ImageView 
+			android:layout_width="match_parent"
+			android:layout_below="@+id/info"
+			android:background="@drawable/ic_downloading"
+			android:layout_alignWithParentIfMissing="true"
+			android:layout_height="200dp"
+			android:scaleType="centerCrop"
+			android:id="@+id/image" />
+	   		
+		<ImageView 
+		    android:layout_below="@+id/image"
+			android:layout_width="100dp"
+			android:background="@drawable/ic_downloading"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="-30dp"
+			android:layout_height="150dp"
+			android:scaleType="centerCrop"
+			android:id="@+id/poster" />	
+			
+		<TextView
+			android:layout_width="match_parent"
+			android:padding="10dp"
+			
+			android:layout_toRightOf="@+id/poster"
+			android:layout_below="@+id/image"
+			android:minHeight="120dp"
+			
+			android:id="@+id/description"
+			android:layout_height="wrap_content"
+			android:text="Description" />
+		
+	   	<!-- Rating bar -->
+	   	<LinearLayout
+	   		android:layout_below="@+id/description"
+	   		android:background="#333"
+	   		android:id="@+id/ratingBar"
+	   		android:padding="7dp"
+	   		android:layout_marginTop="4dp"
+	   		android:layout_width="match_parent"
+	   		android:orientation="horizontal"
+	   		android:layout_height="wrap_content">
+	   		
+	   		<TextView
+	   			android:layout_width="wrap_content"
+	   			android:textAppearance="@android:style/TextAppearance.Large"
+	   			android:layout_height="wrap_content"
+	   			android:layout_gravity="center"
+	   			android:id="@+id/score"
+	   			android:text="0%" />
+	   		
+	   		<ImageView
+	   			android:layout_width="wrap_content"
+	   			android:layout_height="wrap_content"
+	   			android:padding="0dp"
+	   			
+	   			android:src="@drawable/ic_action_heart"
+	   			android:layout_gravity="center" />
+	   		
+	   		<View
+	   			android:layout_width="0dp"
+	   			android:layout_weight="1"
+	   			android:layout_height="match_parent" />
+	   		
+	   		<Button
+	   		    android:id="@+id/currentlyRated"
+	   		    android:text="@string/currently_ninja"
+	   		    android:visibility="gone"
+	   		    android:layout_width="wrap_content"
+	   		    android:layout_height="wrap_content" />
+	   		
+	   		<ImageButton 
+	   		    android:contentDescription="@string/totally_ninja"
+	   			android:id="@+id/totallyNinja"
+	   			android:src="@drawable/ic_action_heart"
+	   			android:layout_width="wrap_content"
+	   			android:background="@drawable/btn_default_holo_light"
+	   			android:layout_height="wrap_content"
+	   			/>
+	   		
+	   		<ImageButton 
+	   		    android:contentDescription="@string/weak_sauce"
+	   			android:id="@+id/weakSauce"
+	   			android:layout_marginLeft="6dp"
+	   			android:src="@drawable/ic_action_heart_up"
+	   			android:layout_width="wrap_content"
+	   			android:layout_height="wrap_content"
+	   			/>
+	   		
+	   		<ProgressBar android:id="@+id/rating"
+	   		    android:visibility="gone"
+	   		    android:layout_width="wrap_content"
+	   		    android:layout_height="wrap_content" />
+	   		
+	   	</LinearLayout>
+	   	
+	   	<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/people"
+	        android:orientation="vertical"
+	        android:layout_below="@+id/ratingBar">
+	   		
+	   	    <CheckBox android:id="@+id/seen_it"
+	   	        android:layout_width="match_parent"
+	   	        android:text="@string/seen_it"
+	   	        android:layout_height="wrap_content" />
+	   	    
+	   	    <CheckBox android:id="@+id/in_collection"
+	   	        android:layout_width="match_parent"
+	   	        android:text="@string/in_collection"
+	   	        android:layout_height="wrap_content" />
+	   	    
+	   	   	<TextView android:id="@+id/people_header"
+	   	        android:padding="7dp"
+	   	        android:layout_width="match_parent"
+	   	        android:layout_height="wrap_content"
+	   	        android:background="@android:color/holo_green_dark"
+	   	        android:text="@string/people" />
+	   	    
+	   	</LinearLayout>
+	
+	</RelativeLayout>
+</ScrollView>
