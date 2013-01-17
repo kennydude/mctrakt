@@ -1,5 +1,7 @@
 package me.kennydude.trakt;
 
+import org.lucasr.smoothie.AsyncListView;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +39,9 @@ public abstract class AuthedListFragment extends AuthedFragment {
 		setListShown(true);
 	}
 	
-	public ListView getListView(){
+	public AsyncListView getListView(){
 		if(getView() == null) return null;
-		return (ListView) getView().findViewById(android.R.id.list);
+		return (AsyncListView) getView().findViewById(android.R.id.list);
 	}
 	
 	public void setListShown(boolean shown) {

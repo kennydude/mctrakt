@@ -3,4 +3,7 @@ gen
 /.classpath
 /.project
 /project.properties
-/.settings/org.eclipse.jdt.core.prefs
+.settings/*
+
+local.properties
+target
