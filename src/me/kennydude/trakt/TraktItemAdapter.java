@@ -2,9 +2,6 @@ package me.kennydude.trakt;
 
 import me.kennydude.trakt.data.TraktItem;
 
-import com.novoda.imageloader.core.model.ImageTag;
-import com.novoda.imageloader.core.model.ImageTagFactory;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,17 +24,9 @@ import uk.co.senab.bitmapcache.*;
 
 public class TraktItemAdapter extends ArrayAdapter<TraktItem> implements AbsListView.OnItemClickListener {
 	public String tickId = null;
-	ImageTagFactory imageTagFactory;
 	
 	public TraktItemAdapter(Activity context) {
 		super(context, 0);
-		imageTagFactory = ImageTagFactory.getInstance(context, R.drawable.ic_downloading);
-		
-		DisplayMetrics outMetrics = new DisplayMetrics();
-		context.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
-		
-		imageTagFactory.usePreviewImage(outMetrics.widthPixels, outMetrics.densityDpi * 100, true);
-		imageTagFactory.setSaveThumbnail(true);
 	}
 	
 	public static class ViewHolder{

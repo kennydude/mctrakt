@@ -36,6 +36,7 @@
     
     <string name="seen_it">Seen it</string>
     <string name="in_collection">In my collection</string>
+    <string name="in_watchlist">In watchlist</string>
     
     <string name="trending_movies">Trending Movies</string>
     <string name="trending_shows">Trending Shows</string>
@@ -52,6 +53,11 @@
     <string name="activity_watching">{user} is watching {title}</string>
     <string name="activity_watchlist">{user} added {title} to their watchlist</string>
     <string name="activity_scrobble">{user} scrobbled {title}</string>
+    <string name="activity_checkin">{user} checked into {title}</string>
+    <string name="activity_seen">{user} has seen {title}</string>
+    <string name="activity_collection">{user} added {title} to their collection</string>
+    <string name="activity_rating">{user} rated {title}</string>
+    <string name="activity_shout">{user} shared their thoughts on {title}</string>
     
     <string name="default_checkin_message">I\'m watching {show}</string>
     <string name="default_checkin_message_show">I\'m watching {show} - {seasonNo}x{epNo} {episode}</string>
@@ -74,7 +80,9 @@
     <string name="about_str">
 McTrakt is a trakt client for Android built by @kennydude (Joe Simpson).\nI hope you love it as much as I do!\n\n
 Some lovely open-source libraries and such were used to make the application magical. Those were:\n\n
-Android ImageLoader - http://androidimageloader.com/\n
+Android-BitmapCache by Chris Banes\n
+Licensed under the Apache License 2.0\n\n
+Smoothie by Lucas Rocha\n
 Licensed under the Apache License 2.0\n\n
 Refresh, TV, Mustache icons are from the Noun Project.\n\n
 And also many of the images were generated using the resources here - android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html

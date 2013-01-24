@@ -4,7 +4,10 @@ import me.kennydude.trakt.data.TraktItem;
 import me.kennydude.trakt.data.TraktItem.RATING;
 import me.kennydude.trakt.data.TraktItemExtra;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import uk.co.senab.bitmapcache.NetworkedCacheableImageView;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -25,19 +28,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
-import com.novoda.imageloader.core.model.ImageTag;
-import com.novoda.imageloader.core.model.ImageTagFactory;
-
 public class ActivityItemView extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 	TraktItem ti;
-	ImageTagFactory itf;
 	
 	@Override
 	public void onCreate(Bundle bis){
@@ -45,8 +44,6 @@ public class ActivityItemView extends Activity implements LoaderManager.LoaderCa
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_item);
 		setEnabled(false);
-		
-		itf = ImageTagFactory.getInstance(this, R.drawable.ic_downloading);
 		
 		if(getIntent().hasExtra("value")){
 			getLoaderManager().initLoader(0, null, this);
@@ -91,6 +88,88 @@ public class ActivityItemView extends Activity implements LoaderManager.LoaderCa
 			
 		});
 		CheatSheet.setup(cr, getString(R.string.reset_rating));
+		
+		setCheckbox(R.id.in_collection, "library");
+		setCheckbox(R.id.seen_it, "seen");
+		setCheckbox(R.id.in_watchlist, "watchlist");
+	}
+	
+	void setCheckbox(int id, final String what){
+		CheckBox cb = (CheckBox) findViewById(id);
+		cb.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				setCheckboxEnabled(false);
+				new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						try{
+							String prefix = "";
+							if(what.equals("library") && ti.in_collection){
+								prefix = "un";
+							} else if(what.equals("watchlist") && ti.in_watchlist){
+								prefix = "un";
+							} else if(what.equals("seen") && ti.watched){
+								prefix = "un";
+							}
+							
+							String url = "http://api.trakt.tv/" + ti.type.toTraktString() + "/" + prefix + what + "/" + TraktApplication.API_KEY;
+							Log.d("trakt", url);
+							
+							JSONObject jo = new JSONObject();
+							
+							JSONArray items = new JSONArray();
+							JSONObject item = new JSONObject();
+							item.put(ti.idType, ti.id);
+							item.put("title", ti.title);
+							items.put(item);
+							
+							jo.put(ti.type.toTraktString() + "s", items);
+							
+							jo = new JSONObject(Utils.postAuthedJSON(ActivityItemView.this, url, jo, false) );
+							if(jo.optString("status").equals("success")){
+								
+								// Set it
+								if(what.equals("library")){
+									ti.in_collection = !ti.in_collection;
+								} else if(what.equals("watchlist")){
+									ti.in_watchlist = !ti.in_watchlist;
+								} else if(what.equals("seen")){
+									ti.watched = !ti.watched;
+								}
+								
+								updateTraktItem();
+							}
+						} catch(Exception e){
+							e.printStackTrace();
+						}
+						
+						runOnUiThread(new Runnable(){
+
+							@Override
+							public void run() {
+								setCheckboxEnabled(true);
+								renderView();
+							}
+							
+						});
+					}
+					
+				}).start();
+			}
+			
+		});
+	}
+	
+	void setCheckboxEnabled(boolean b){
+		View v = findViewById(R.id.in_collection);
+		v.setEnabled(b);
+		v = findViewById(R.id.seen_it);
+		v.setEnabled(b);
+		v = findViewById(R.id.in_watchlist);
+		v.setEnabled(b);
 	}
 	
 	private static final int[] EN_IDS = {
@@ -253,17 +332,15 @@ public class ActivityItemView extends Activity implements LoaderManager.LoaderCa
 	}
 	
 	void setImage(int id, String url){
-		ImageView iv = (ImageView)findViewById(id);
-		ImageTag tag = itf.build(url);
-	    iv.setTag(tag);
-	    TraktApplication.getImageManager().getLoader().load(iv);
+		NetworkedCacheableImageView iv = (NetworkedCacheableImageView)findViewById(id);
+		iv.loadImage(url, false);
 	}
 	
 	void renderView(){
 		setEnabled(true);
 		setTitle(ti.title);
 		
-		setImage(R.id.image, ti.getBanner());
+		setImage(R.id.image, ti.getSizedBanner(this));
 		setImage(R.id.poster, ti.images.get("poster"));
 		
 		TextView tv = (TextView) findViewById(R.id.description);
@@ -314,6 +391,15 @@ public class ActivityItemView extends Activity implements LoaderManager.LoaderCa
 		} else if(ti.my_rating == RATING.WEAK_SAUCE){
 			currentlyRated.setText(R.string.currently_weak);
 		}
+		
+		CheckBox cb = (CheckBox)findViewById(R.id.in_collection);
+		cb.setChecked( ti.in_collection );
+		
+		cb = (CheckBox)findViewById(R.id.in_watchlist);
+		cb.setChecked( ti.in_watchlist );
+		
+		cb = (CheckBox)findViewById(R.id.seen_it);
+		cb.setChecked( ti.watched );
 	}
 
 	@Override

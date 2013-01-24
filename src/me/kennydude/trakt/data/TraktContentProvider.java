@@ -70,36 +70,43 @@ public class TraktContentProvider extends ContentProvider {
 	}
 	
 	public Cursor fetchSummaryOfItem(String item){
-		String[] parts = item.split("-");
-		
-		TraktItem ti = TraktItem.getFromNetwork(parts[0], parts[1], getContext());
-		
-		addItemToDb(ti);
-		
-		MatrixCursor mx = new MatrixCursor(new String[]{
-			"json", "id"
-		});
-		mx.addRow(new Object[]{
-			ti.toJSONObject().toString(),
-			ti.type.toTraktString() + "-" + ti.id
-		});
-		return mx;
+		try{
+			String[] parts = item.split("-");
+			
+			TraktItem ti = TraktItem.getFromNetwork(parts[0], parts[1], getContext());
+			
+			addItemToDb(ti);
+			
+			MatrixCursor mx = new MatrixCursor(new String[]{
+				"json", "id"
+			});
+			mx.addRow(new Object[]{
+				ti.toJSONObject().toString(),
+				ti.type.toTraktString() + "-" + ti.id
+			});
+			return mx;
+		} catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public void addItemToDb(TraktItem ti){
-		String id = ti.type.toTraktString() + "-" + ti.id;
-		
 		try{
-			db.execSQL("DELETE FROM `items` WHERE `id` = ? AND `type`= 'i' ", new String[]{ id });
-		} catch(Exception e){e.printStackTrace();}
-		
-		ContentValues cv = new ContentValues();
-		cv.put("json", ti.toJSONObject().toString());
-		cv.put("url", ti.url);
-		cv.put("id", id);
-		cv.put("type", "i");
-		cv.put("time", new Date().getTime() / 1000);
-		db.insert("items", null, cv);
+			String id = ti.type.toTraktString() + "-" + ti.id;
+			
+			try{
+				db.execSQL("DELETE FROM `items` WHERE `id` = ? AND `type`= 'i' ", new String[]{ id });
+			} catch(Exception e){e.printStackTrace();}
+			
+			ContentValues cv = new ContentValues();
+			cv.put("json", ti.toJSONObject().toString());
+			cv.put("url", ti.url);
+			cv.put("id", id);
+			cv.put("type", "i");
+			cv.put("time", new Date().getTime() / 1000);
+			db.insert("items", null, cv);
+		} catch(Exception e){}
 	}
 	
 	public Cursor fetchList(String item){

@@ -61,6 +61,8 @@ public class TraktItem {
 	public int rating;
 	public RATING my_rating = RATING.NOT_RATED;
 	
+	public boolean in_collection, in_watchlist, watched;
+	
 	public TraktItemExtra extra = null;
 	
 	public static TraktItem fromEpisodeJSON(JSONObject jo) throws JSONException{
@@ -126,6 +128,10 @@ public class TraktItem {
 		if(jo.has("people")){
 			ti.extra = TraktItemExtra.fromJSON(jo);
 		}
+		
+		ti.in_collection = jo.optBoolean("in_collection");
+		ti.in_watchlist = jo.optBoolean("in_watchlist");
+		ti.watched = jo.optBoolean("watched");
 			
 		return ti;
 	}
@@ -187,6 +193,10 @@ public class TraktItem {
 		
 			jo.put("type", type.toString());
 			jo.put("rating", my_rating.toTraktString());
+			
+			jo.put("in_watchlist", in_watchlist);
+			jo.put("in_collection", in_collection);
+			jo.put("watched", watched);
 			
 			if(extra != null){
 				extra.applyToJSON(jo);

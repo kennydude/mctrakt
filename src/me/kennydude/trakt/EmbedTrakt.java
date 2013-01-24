@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.novoda.imageloader.core.util.DirectLoader;
 import com.teamboid.twitter.tweetwidgets.TweetWidget;
 
 public class EmbedTrakt extends TweetWidget {
@@ -38,7 +37,7 @@ public class EmbedTrakt extends TweetWidget {
 		
 		Bitmap bitmap = null;
 		try{
-			bitmap = new DirectLoader().download(ti.getBanner());
+			bitmap = TraktApplication.getInstance(cntxt).getLruCache().get(ti.getBanner()).getBitmap();
 		} catch(Exception e){
 			e.printStackTrace();
 		}

@@ -3,8 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <include layout="@layout/item_row" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="100dp" >
+	    
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="100dp"
+	        android:scaleType="centerCrop"
+	        android:background="@drawable/ic_downloading"
+	        android:id="@+id/image" />
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:singleLine="true"
+	        android:layout_alignParentBottom="true"
+	        android:padding="5dp"
+	        android:background="@color/pressed_trakt"
+	        android:text="Hello world"
+	        android:textColor="@android:color/primary_text_dark"
+	        android:id="@+id/title" />
+	    
+	    <View android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	       	android:layout_alignParentLeft="true"
+	       	android:layout_alignParentTop="true"
+	       	android:layout_alignParentBottom="true"
+	       	android:layout_alignParentRight="true"
+	        android:background="@drawable/item_selector" />
+	
+	</RelativeLayout>
     
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">

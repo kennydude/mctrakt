@@ -9,20 +9,17 @@ import uk.co.senab.bitmapcache.BitmapLruCache;
 import uk.co.senab.bitmapcache.CacheableBitmapDrawable;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 
-import com.novoda.imageloader.core.model.ImageTagFactory;
-
 public class TraktActivityAdapter extends ArrayAdapter<TraktActivity> {
-	ImageTagFactory imageTagFactory;
 	
 	public TraktActivityAdapter(Context context) {
 		super(context, 0);
-		imageTagFactory = ImageTagFactory.getInstance(context, R.drawable.ic_downloading);
 	}
 	
 	@Override
@@ -39,24 +36,33 @@ public class TraktActivityAdapter extends ArrayAdapter<TraktActivity> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		/*
-		ImageView iv = (ImageView)convertView.findViewById(R.id.icon);
-		ImageTag tag = imageTagFactory.build(ti.who_icon);
-		iv.setBackgroundResource(R.drawable.ic_downloading);
-	    iv.setTag(tag);
-	    TraktApplication.getImageManager().getLoader().load(iv);
-	    */
-		
 		// Maybe offload this?
 		String title = "";
-		if(ti.what.equals("watch")){
+		if(ti.what.equals("watching")){
 			title = getContext().getString(R.string.activity_watching).replace("{user}", ti.who).replace("{title}", ti.item.title);
 		} else if(ti.what.equals("watchlist")){
 			title = getContext().getString(R.string.activity_watchlist).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("checkin")){
+			title = getContext().getString(R.string.activity_checkin).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("seen")){
+			title = getContext().getString(R.string.activity_seen).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("collection")){
+			title = getContext().getString(R.string.activity_collection).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("rating")){
+			title = getContext().getString(R.string.activity_rating).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("shout")){
+			title = getContext().getString(R.string.activity_shout).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else if(ti.what.equals("scrobble")){
+			title = getContext().getString(R.string.activity_scrobble).replace("{user}", ti.who).replace("{title}", ti.item.title);
+		} else{
+			Log.d("trakt", "what? " + ti.what);
 		}
 		
 		holder.title.setText(title);
 		holder.title.setSingleLine(false);
+		
+		holder.image.setImageDrawable(null);
+		holder.icon.setImageDrawable(null);
 		
 		return convertView;	
 	}

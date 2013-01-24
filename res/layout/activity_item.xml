@@ -18,7 +18,7 @@
 	        android:background="@color/info_bar"
 	        android:layout_height="wrap_content" />
 	    
-	   	<ImageView 
+	   	<uk.co.senab.bitmapcache.NetworkedCacheableImageView 
 			android:layout_width="match_parent"
 			android:layout_below="@+id/info"
 			android:background="@drawable/ic_downloading"
@@ -27,7 +27,7 @@
 			android:scaleType="centerCrop"
 			android:id="@+id/image" />
 	   		
-		<ImageView 
+		<uk.co.senab.bitmapcache.NetworkedCacheableImageView
 		    android:layout_below="@+id/image"
 			android:layout_width="100dp"
 			android:background="@drawable/ic_downloading"
@@ -130,6 +130,12 @@
 	   	        android:layout_width="match_parent"
 	   	        android:layout_marginTop="10dp"
 	   	        android:text="@string/in_collection"
+	   	        android:layout_height="wrap_content" />
+	   	    
+	   	    <CheckBox android:id="@+id/in_watchlist"
+	   	        android:layout_width="match_parent"
+	   	        android:layout_marginTop="10dp"
+	   	        android:text="@string/in_watchlist"
 	   	        android:layout_height="wrap_content" />
 	   	    
 	   	   	<TextView android:id="@+id/people_header"

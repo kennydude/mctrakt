@@ -8,6 +8,8 @@
         android:text="@string/select_episode_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/info_bar_text"
+	    android:background="@color/info_bar"
         android:gravity="center"
         android:visibility="gone"
         android:padding="10dp" />
