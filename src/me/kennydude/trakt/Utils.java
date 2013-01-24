@@ -1,5 +1,10 @@
 package me.kennydude.trakt;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 
 import org.apache.http.HttpResponse;
@@ -12,6 +17,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
@@ -147,6 +153,22 @@ public class Utils {
 	    md.update(text.getBytes("iso-8859-1"), 0, text.length());
 	    sha1hash = md.digest();
 	    return convertToHex(sha1hash);
-    } 
+    }
+
+	public static InputStream loadImage(String url) {
+		HttpURLConnection connection = null;
+        InputStream is = null;
+
+        try {
+            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setConnectTimeout(15000);
+
+            is = new BufferedInputStream(connection.getInputStream());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        return is;
+	} 
 
 }

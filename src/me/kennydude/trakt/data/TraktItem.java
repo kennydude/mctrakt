@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import me.kennydude.trakt.TraktApplication;
 import me.kennydude.trakt.Utils;
 
 import org.json.JSONException;
@@ -143,16 +144,15 @@ public class TraktItem {
 	}
 	
 	public String getSizedBanner(Activity a){
-		Point outSize = new Point();
-		a.getWindowManager().getDefaultDisplay().getSize(outSize);
+		int width = TraktApplication.getScreenWidth(a);
 		
 		if(images.containsKey("banner")){
 			return images.get("banner");
 		} else if(images.containsKey("fanart")){
 			String fArt = images.get("fanart");
-			if(outSize.x <= 218){
+			if(width <= 218){
 				fArt = fArt.replace(".jpg", "-218.jpg");
-			} else if(outSize.x <= 940){
+			} else if(width <= 940){
 				fArt = fArt.replace(".jpg", "-940.jpg");
 			}
 			return fArt;

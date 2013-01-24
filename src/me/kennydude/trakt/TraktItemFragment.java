@@ -3,6 +3,7 @@ package me.kennydude.trakt;
 import me.kennydude.trakt.data.TraktItem;
 
 import org.json.JSONObject;
+import org.lucasr.smoothie.ItemManager;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -40,6 +41,13 @@ public abstract class TraktItemFragment extends AuthedListFragment implements IT
 		if(getListAdapter() != null){
 			return;
 		}
+		
+		ItemManager.Builder builder = new ItemManager.Builder(new TraktItemAdapter.Loader(getActivity()));
+		
+		builder.setPreloadItemsEnabled(true).setPreloadItemsCount(5);
+		builder.setThreadPoolSize(4);
+		ItemManager itemManager = builder.build();
+		getListView().setItemManager(itemManager);
 		
 		tia = new TraktItemAdapter(getActivity());
 		setListAdapter(tia);

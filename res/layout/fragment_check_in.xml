@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/layout"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <TextView android:id="@+id/errorCheckin"
-        android:text="@string/select_episode_first"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:visibility="gone"
-        android:padding="10dp" />
+    	android:orientation="vertical" >
     
-    <EditText android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:singleLine="false"
-        android:inputType="textMultiLine"
-        android:minLines="4"
-        android:layout_height="wrap_content" />
-    
-    <!-- Here any 3rd party services will be added -->
-    
-    <!-- Built-in services: -->
-    
-    <CheckBox android:id="@+id/shareTwitter"
-        android:text="@string/share_twitter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <CheckBox android:id="@+id/shareFacebook"
-        android:text="@string/share_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    
-	<CheckBox android:id="@+id/shareTumblr"
-        android:text="@string/share_tumblr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+	    <TextView android:id="@+id/errorCheckin"
+	        android:text="@string/select_episode_first"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:visibility="gone"
+	        android:padding="10dp" />
+	    
+	    <EditText android:id="@+id/text"
+	        android:layout_width="match_parent"
+	        android:singleLine="false"
+	        android:inputType="textMultiLine"
+	        android:minLines="4"
+	        android:layout_height="wrap_content" />
+	    
+	    <!-- Here any 3rd party services will be added -->
+	    
+	    <!-- Built-in services: -->
+	    
+	    <CheckBox android:id="@+id/shareTwitter"
+	        android:text="@string/share_twitter"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	
+	    <CheckBox android:id="@+id/shareFacebook"
+	        android:text="@string/share_facebook"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    
+		<CheckBox android:id="@+id/shareTumblr"
+	        android:text="@string/share_tumblr"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	
+	</LinearLayout>
+</ScrollView>

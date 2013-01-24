@@ -121,16 +121,19 @@
 	        android:layout_below="@+id/ratingBar">
 	   		
 	   	    <CheckBox android:id="@+id/seen_it"
+	   	        android:layout_marginTop="10dp"
 	   	        android:layout_width="match_parent"
 	   	        android:text="@string/seen_it"
 	   	        android:layout_height="wrap_content" />
 	   	    
 	   	    <CheckBox android:id="@+id/in_collection"
 	   	        android:layout_width="match_parent"
+	   	        android:layout_marginTop="10dp"
 	   	        android:text="@string/in_collection"
 	   	        android:layout_height="wrap_content" />
 	   	    
 	   	   	<TextView android:id="@+id/people_header"
+	   	   	    android:layout_marginTop="10dp"
 	   	        android:padding="7dp"
 	   	        android:layout_width="match_parent"
 	   	        android:layout_height="wrap_content"
