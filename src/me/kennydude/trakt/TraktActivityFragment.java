@@ -4,6 +4,7 @@ import me.kennydude.trakt.data.TraktActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.lucasr.smoothie.ItemManager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,6 +40,13 @@ public abstract class TraktActivityFragment extends AuthedListFragment implement
 		tia = new TraktActivityAdapter(getActivity());
 		getListView().setAdapter(tia);
 		// getListView().setOnItemClickListener(tia);
+		
+		ItemManager.Builder builder = new ItemManager.Builder(tia.getNewLoader(getActivity()));
+		
+		builder.setPreloadItemsEnabled(true).setPreloadItemsCount(5);
+		builder.setThreadPoolSize(4);
+		ItemManager itemManager = builder.build();
+		getListView().setItemManager(itemManager);
 		
 		refresh(true);
 	}

@@ -41,6 +41,12 @@ public class TraktItemAdapter extends ArrayAdapter<TraktItem> implements AbsList
 	}
 	
 	public static class ViewHolder{
+		public ViewHolder(View convertView){
+			icon = (ImageView)convertView.findViewById(R.id.icon);
+			image = (ImageView)convertView.findViewById(R.id.image);
+			title = (TextView) convertView.findViewById(R.id.title);
+		}
+		
 		ImageView icon;
 		TextView title;
 		ImageView image;
@@ -53,11 +59,7 @@ public class TraktItemAdapter extends ArrayAdapter<TraktItem> implements AbsList
 		
 		if(convertView == null){
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_row, null);
-			
-			holder = new ViewHolder();
-			holder.icon = (ImageView)convertView.findViewById(R.id.icon);
-			holder.image = (ImageView)convertView.findViewById(R.id.image);
-			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder = new ViewHolder(convertView);
 			
 			convertView.setTag(holder);
 		} else{
@@ -67,37 +69,15 @@ public class TraktItemAdapter extends ArrayAdapter<TraktItem> implements AbsList
 		holder.title.setText( ti.title );
 		
 		holder.image.setImageDrawable(null);
-		/*
-		ImageView iv = (ImageView)convertView.findViewById(R.id.image);
-		ImageTag tag = imageTagFactory.build(ti.getSizedBanner((Activity) getContext()));
-	    iv.setTag(tag);
-	    TraktApplication.getImageManager().getLoader().load(iv);
-	    */
 		
 		if(tickId == null || !tickId.equals(ti.id)){
 			holder.icon.setVisibility(View.GONE);
 		} else{
 			Log.d("trakt", "showing glyph");
 			holder.icon.setVisibility(View.VISIBLE);
-			//iv.setImageResource(ti.glyph);
 		}
 		
 		return convertView;	
-	}
-	
-	public static View applyView(View convertView, ImageTagFactory itf, TraktItem ti, Context c){
-		if(convertView == null){
-			convertView = LayoutInflater.from(c).inflate(R.layout.item_row, null);
-		}
-		
-		ImageView iv = (ImageView)convertView.findViewById(R.id.image);
-		ImageTag tag = itf.build(ti.getSizedBanner((Activity) c));
-	    iv.setTag(tag);
-	    TraktApplication.getImageManager().getLoader().load(iv);
-		
-		((TextView)convertView.findViewById(R.id.title)).setText(ti.title);
-		
-		return convertView;
 	}
 
 	@Override
