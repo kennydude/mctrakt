@@ -83,8 +83,12 @@ public class TraktItem {
 		return ti;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static TraktItem fromJSON(JSONObject jo) throws JSONException{
+		return fromJSON(jo, false);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static TraktItem fromJSON(JSONObject jo, boolean fast) throws JSONException{
 		TraktItem ti = new TraktItem();
 		ti.title  = jo.getString("title");
 		ti.tagline = jo.optString("tagline", "");
@@ -98,12 +102,15 @@ public class TraktItem {
 		}
 		
 		ti.images = new HashMap<String, String>();
-		JSONObject im = jo.getJSONObject("images");
-		Iterator<String> key = im.keys();
-		String k = "";
-		while( key.hasNext() ){
-			k = (String) key.next();
-			ti.images.put( k, im.getString(k));
+		
+		if(!fast){
+			JSONObject im = jo.getJSONObject("images");
+			Iterator<String> key = im.keys();
+			String k = "";
+			while( key.hasNext() ){
+				k = (String) key.next();
+				ti.images.put( k, im.getString(k));
+			}
 		}
 		
 		if(jo.has("id_type")){
@@ -118,15 +125,17 @@ public class TraktItem {
 			}
 		}
 		
-		if(jo.has("type")){
-			ti.type = TYPE.valueOf( jo.optString("type") );
-		}
-		if(jo.has("rating")){
-			ti.my_rating = RATING.fromString(jo.optString("rating"));
-		}
-		
-		if(jo.has("people")){
-			ti.extra = TraktItemExtra.fromJSON(jo);
+		if(!fast){
+			if(jo.has("type")){
+				ti.type = TYPE.valueOf( jo.optString("type") );
+			}
+			if(jo.has("rating")){
+				ti.my_rating = RATING.fromString(jo.optString("rating"));
+			}
+			
+			if(jo.has("people")){
+				ti.extra = TraktItemExtra.fromJSON(jo);
+			}
 		}
 		
 		ti.in_collection = jo.optBoolean("in_collection");

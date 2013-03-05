@@ -39,7 +39,8 @@
         <org.lucasr.smoothie.AsyncListView android:id="@android:id/list"
                 android:layout_width="match_parent" 
                 android:layout_height="match_parent"
-                android:drawSelectorOnTop="false" />
+                android:listSelector="@color/pressed_trakt"
+                android:drawSelectorOnTop="true" />
         <TextView android:id="@+id/empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

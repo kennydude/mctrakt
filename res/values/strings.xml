@@ -76,6 +76,7 @@
     <string name="job_executive_producer">Executive Producer</string>
     <string name="job_writer">Writer - {extra}</string>
     <string name="people">People</string>
+    <string name="shouts">Shouts</string>
     
     <string name="about_str">
 McTrakt is a trakt client for Android built by @kennydude (Joe Simpson).\nI hope you love it as much as I do!\n\n

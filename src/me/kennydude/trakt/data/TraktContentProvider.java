@@ -3,7 +3,9 @@ package me.kennydude.trakt.data;
 import java.util.Date;
 import java.util.List;
 
+import android.os.Debug;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import me.kennydude.trakt.TraktApplication;
 import me.kennydude.trakt.Utils;
@@ -74,8 +76,7 @@ public class TraktContentProvider extends ContentProvider {
 			String[] parts = item.split("-");
 			
 			TraktItem ti = TraktItem.getFromNetwork(parts[0], parts[1], getContext());
-			
-			addItemToDb(ti);
+			addItemToDb(ti.toJSONObject(), ti);
 			
 			MatrixCursor mx = new MatrixCursor(new String[]{
 				"json", "id"
@@ -91,7 +92,7 @@ public class TraktContentProvider extends ContentProvider {
 		}
 	}
 	
-	public void addItemToDb(TraktItem ti){
+	public void addItemToDb(JSONObject jo, TraktItem ti){
 		try{
 			String id = ti.type.toTraktString() + "-" + ti.id;
 			
@@ -100,7 +101,7 @@ public class TraktContentProvider extends ContentProvider {
 			} catch(Exception e){e.printStackTrace();}
 			
 			ContentValues cv = new ContentValues();
-			cv.put("json", ti.toJSONObject().toString());
+			cv.put("json", jo.toString());
 			cv.put("url", ti.url);
 			cv.put("id", id);
 			cv.put("type", "i");
@@ -122,10 +123,17 @@ public class TraktContentProvider extends ContentProvider {
 			String url = "http://api.trakt.tv/" + urlItem;
 			JSONArray ja = new JSONArray( Utils.getRemote(url, false, getContext()) );
 			
+			Log.d("trakt", "Return from network");
+			
 			JSONArray items = new JSONArray();
-			for(int i = 0; i < ja.length(); i++){
-				TraktItem ti = TraktItem.fromJSON(ja.getJSONObject(i));
-				addItemToDb(ti);
+			
+			// This is why it was slow. Trakt was sending 117 entries :|
+			int max = Math.min(ja.length(), 20);
+			for(int i = 0; i < max; i++){
+				JSONObject jo = ja.getJSONObject(i);
+				TraktItem ti = TraktItem.fromJSON(jo, true);
+				
+				addItemToDb(jo, ti);
 				
 				String id = ti.type.toTraktString() + "-" + ti.id;
 				mx.addRow(new Object[]{

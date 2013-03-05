@@ -42,8 +42,12 @@ public class BaseViewPagerActivity extends Activity implements ActionBar.TabList
 		sfpa.notifyDataSetChanged();
 	}
 	
-	void addItem(Class<? extends Fragment> c, int s){
-		sfpa.addItem(c);
+	public Fragment getLiveItem(int it){
+		return sfpa.getLiveItem(it);
+	}
+		
+	public void addItem(Class<? extends Fragment> c, int s){
+		sfpa.addItem(c); sfpa.notifyDataSetChanged();
 		getActionBar().addTab( getActionBar().newTab().setText(s).setTabListener(this));
 	}
 	

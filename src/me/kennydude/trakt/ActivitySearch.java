@@ -165,6 +165,8 @@ public class ActivitySearch extends BaseViewPagerActivity {
 		@Override
 		public void refresh(boolean startP){
 			if(startP) return;
+			if(getActivity() == null) return;
+			
 			query = ((ActivitySearch)getActivity()).query;
 			
 			tia.clear();
@@ -178,27 +180,33 @@ public class ActivitySearch extends BaseViewPagerActivity {
 				public void run() {
 					
 					// Get lists
-					ActivitySearch a = (ActivitySearch)getActivity();
-					final ArrayList<TraktItem> ti = new ArrayList<TraktItem>();
-					
-					ti.addAll( a.getList(1) );
-					ti.addAll( a.getList(2) );
-					
-					// Now sort
-					Collections.sort(ti, new BestMatchComparator());
-					Collections.reverse(ti);
-					
-					getActivity().runOnUiThread(new Runnable(){
-
-						@Override
-						public void run() {
-							tia.addAll(ti);
-							tia.notifyDataSetInvalidated();
-							setListShown(true);
-							setRefreshing(false);
-						}
+					try{
+						ActivitySearch a = (ActivitySearch)getActivity();
+						final ArrayList<TraktItem> ti = new ArrayList<TraktItem>();
 						
-					});
+						ti.addAll( a.getList(1) );
+						ti.addAll( a.getList(2) );
+						
+						// Now sort
+						Collections.sort(ti, new BestMatchComparator());
+						Collections.reverse(ti);
+						
+						getActivity().runOnUiThread(new Runnable(){
+							
+							@Override
+							public void run() {
+								if(getActivity() == null) return;
+								tia.addAll(ti);
+								tia.notifyDataSetInvalidated();
+								setListShown(true);
+								setRefreshing(false);
+							}
+							
+						});
+						
+					} catch(Exception e){
+						e.printStackTrace();
+					}
 				}
 				
 			}).start();

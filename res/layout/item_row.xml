@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp" >
     
@@ -19,6 +18,12 @@
         android:background="@color/pressed_trakt"
         android:text="Hello world"
         android:textColor="@android:color/primary_text_dark"
+        
+        android:shadowRadius="0.5"
+        android:shadowColor="#000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        
         android:id="@+id/title" />
         
     <uk.co.senab.bitmapcache.CacheableImageView 
@@ -33,12 +38,5 @@
         android:paddingRight="10dp"
         android:src="@drawable/ic_tick" />
     
-    <View android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       	android:layout_alignParentLeft="true"
-       	android:layout_alignParentTop="true"
-       	android:layout_alignParentBottom="true"
-       	android:layout_alignParentRight="true"
-        android:background="@drawable/item_selector" />
 
 </RelativeLayout>

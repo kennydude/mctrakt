@@ -1,6 +1,7 @@
 package me.kennydude.trakt;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -24,6 +25,17 @@ public class ActivityMain extends BaseViewPagerActivity {
 		addItem(FriendsActivityFragment.class, R.string.friends_activity);
 		addItem(FavouriteMoviesFragment.class, R.string.favourite_movies);
 		addItem(FavouriteShowsFragment.class, R.string.favourite_shows);
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		vpa.setCurrentItem(prefs.getInt("activitylastopened", 0));
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefs.edit().putInt("activitylastopened", vpa.getCurrentItem()).commit();
 	}
 	
 	void hideLoading(){
